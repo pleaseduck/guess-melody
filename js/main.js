@@ -1,5 +1,4 @@
-let template = document.getElementById(`templates`).content.cloneNode(true);
-
+/*
 let welcomeScreen = template.querySelector(`.main--welcome`);
 let levelGenreScreen = template.querySelector(`.main--level-genre`);
 let levelArtistScreen = template.querySelector(`.main--level-artist`);
@@ -8,8 +7,8 @@ let mainResultTimeLeft = template.querySelector(`.main--result--timeLeft`);
 let mainResultNoAttempts = template.querySelector(`.main--result--noattempts`);
 
 let screenList = [welcomeScreen, levelGenreScreen, levelArtistScreen, mainResultWin, mainResultTimeLeft, mainResultNoAttempts];
-
-let showScreen = (number) => {
+*/
+/* let showScreen = (number) => {
   let mainSection = document.querySelector(`.main`);
   if (mainSection.childElementCount === 0) {
   mainSection.appendChild(screenList[number - 1]).cloneNode(true);
@@ -18,9 +17,9 @@ let showScreen = (number) => {
   mainSection.appendChild(screenList[number - 1]).cloneNode(true);
 };
 };
-showScreen(1);
+showScreen(1); */
 
-let leftPointerKeyCode = 37;
+/* let leftPointerKeyCode = 37;
 let rightPointerKeyCode = 39;
 let screenCounter = 0;
 document.addEventListener('keydown', function(evt) {
@@ -41,6 +40,53 @@ document.addEventListener('keydown', function(evt) {
     };
   }
 
-})
-// <- 37
-// -> 39
+}); */
+
+import welcomeScreen from './welcomeScreen.js';
+import switchToLevelArtistScreen from './levelArtistScreen.js';
+import switchToLevelGenreScreen from './levelGenreScreen.js';
+import switchToResultScreen from './resultScreen.js'
+
+let mainSection = document.querySelector(`.main`);
+
+ let template = document.querySelector(`#templates`)
+window.addEventListener(`load`, function () {
+  let currentScreen = welcomeScreen.content.firstElementChild;
+  mainSection.appendChild(currentScreen);
+  let playBtn = mainSection.querySelector(`.main-play`);
+
+  playBtn.addEventListener(`click`, function () {
+    mainSection.removeChild(mainSection.firstElementChild);
+    switchToLevelArtistScreen(mainSection);
+    let optionsField = document.querySelector(`.main-list`);
+
+    optionsField.addEventListener(`click`, function(evt) {
+      let target = evt.target;
+      evt.preventDefault();
+      console.log(evt);
+      if (target.classList.contains(`main-answer-preview`)) {
+        mainSection.removeChild(mainSection.firstElementChild);
+        switchToLevelGenreScreen(mainSection);
+      };
+      let answerBtn = mainSection.querySelector(`.genre-answer-send`);
+      let inputList = mainSection.querySelectorAll(`input`);
+
+      answerBtn.addEventListener(`click`, function (evt) {
+        evt.preventDefault();
+        answerBtn.disabled = `true`;
+        console.log(answerBtn.disabled);
+        console.log(inputList);
+        if (inputList[0].checked === true || inputList[1].checked === true || inputList[2].checked === true || inputList[3].checked === true) {
+          answerBtn.disabled = `false`;
+          mainSection.removeChild(mainSection.firstElementChild);
+          switchToResultScreen(mainSection);
+        }else {
+          answerBtn.disabled = `false`;
+        };
+      });
+
+    });
+
+  });
+
+});
