@@ -1,4 +1,4 @@
-import getHTMLFromTemplate from "./getHTMLFromTemplate";
+import {getHTMLFromTemplate} from "./getHTMLFromTemplate";
 
 const welcomeScreen = getHTMLFromTemplate(`<section class="main main--welcome">
   <section class="logo" title="Угадай мелодию"><h1>Угадай мелодию</h1></section>
@@ -11,9 +11,10 @@ const welcomeScreen = getHTMLFromTemplate(`<section class="main main--welcome">
   </p>
 </section>`, `main--welcome`);
 let currentScreen = welcomeScreen.content.firstElementChild;
-const switchToWelcomeScreen = (mainSection) => {
+
+export const switchToWelcomeScreen = (mainSection) => {
     console.log(welcomeScreen);
   mainSection.appendChild(currentScreen);
 };
 
-export default switchToWelcomeScreen;
+// export default switchToWelcomeScreen;

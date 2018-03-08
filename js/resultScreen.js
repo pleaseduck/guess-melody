@@ -1,4 +1,4 @@
-import getHTMLFromTemplate from "./getHTMLFromTemplate";
+import {getHTMLFromTemplate} from "./getHTMLFromTemplate";
 
 const resultScreen = getHTMLFromTemplate(`<section class="main main--result  main--result--win">
   <section class="logo" title="Угадай мелодию"><h1>Угадай мелодию</h1></section>
@@ -11,9 +11,7 @@ const resultScreen = getHTMLFromTemplate(`<section class="main main--result  mai
   <span role="button" tabindex="0" class="main-replay">Сыграть ещё раз</span>
 </section>`, `main--result--win`);
 
-const switchToResultScreen = (mainSection) => {
+export const switchToResultScreen = (mainSection) => {
   let currentScreen = resultScreen.content.firstElementChild;
   mainSection.appendChild(currentScreen);
 };
-
-export default switchToResultScreen;
