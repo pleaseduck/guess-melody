@@ -42,17 +42,18 @@ document.addEventListener('keydown', function(evt) {
 
 }); */
 
-import welcomeScreen from './welcomeScreen.js';
+// import welcomeScreen from './welcomeScreen.js';
+import switchToWelcomeScreen from './welcomeScreen.js';
 import switchToLevelArtistScreen from './levelArtistScreen.js';
 import switchToLevelGenreScreen from './levelGenreScreen.js';
 import switchToResultScreen from './resultScreen.js'
 
 let mainSection = document.querySelector(`.main`);
 
- let template = document.querySelector(`#templates`)
+// let template = document.querySelector(`#templates`);
+
 window.addEventListener(`load`, function () {
-  let currentScreen = welcomeScreen.content.firstElementChild;
-  mainSection.appendChild(currentScreen);
+  switchToWelcomeScreen(mainSection);
   let playBtn = mainSection.querySelector(`.main-play`);
 
   playBtn.addEventListener(`click`, function () {
@@ -60,29 +61,27 @@ window.addEventListener(`load`, function () {
     switchToLevelArtistScreen(mainSection);
     let optionsField = document.querySelector(`.main-list`);
 
-    optionsField.addEventListener(`click`, function(evt) {
+    optionsField.addEventListener(`click`, function (evt) {
       let target = evt.target;
       evt.preventDefault();
-      console.log(evt);
       if (target.classList.contains(`main-answer-preview`)) {
         mainSection.removeChild(mainSection.firstElementChild);
         switchToLevelGenreScreen(mainSection);
-      };
+      }
       let answerBtn = mainSection.querySelector(`.genre-answer-send`);
       let inputList = mainSection.querySelectorAll(`input`);
 
       answerBtn.addEventListener(`click`, function (evt) {
         evt.preventDefault();
-        answerBtn.disabled = `true`;
-        console.log(answerBtn.disabled);
-        console.log(inputList);
         if (inputList[0].checked === true || inputList[1].checked === true || inputList[2].checked === true || inputList[3].checked === true) {
           answerBtn.disabled = `false`;
           mainSection.removeChild(mainSection.firstElementChild);
           switchToResultScreen(mainSection);
-        }else {
-          answerBtn.disabled = `false`;
-        };
+          let playAgain = document.querySelector(`.main-replay`)
+          playAgain.addEventListener(`click`, function () {
+            window.location.reload();
+          });
+        }
       });
 
     });

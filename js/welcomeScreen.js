@@ -10,5 +10,10 @@ const welcomeScreen = getHTMLFromTemplate(`<section class="main main--welcome">
     Удачи!
   </p>
 </section>`, `main--welcome`);
+let currentScreen = welcomeScreen.content.firstElementChild;
+const switchToWelcomeScreen = (mainSection) => {
+    console.log(welcomeScreen);
+  mainSection.appendChild(currentScreen);
+};
 
-export default welcomeScreen;
+export default switchToWelcomeScreen;
